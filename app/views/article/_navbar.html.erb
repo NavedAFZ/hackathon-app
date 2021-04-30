@@ -7,7 +7,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <%= link_to "Home", challenges_path, class:'nav-link nav-text' %>
+              
       </li>
 
       <% if user_signed_in?%>

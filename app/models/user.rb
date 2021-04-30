@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :login
+  has_many :challenges, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :o mniauthable
   devise :database_authenticatable, :registerable,
