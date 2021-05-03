@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
-
-<p>
+<div class="container">
+<div class="card text-center">
+  <div class="card-header">
+    <h3>Challenge<h3>
+  </div>
+  <div class="card-body">
+   <p>
   <strong>Title:</strong>
   <%= @challenge.title %>
 </p>
@@ -15,5 +20,22 @@
   <%= @challenge.tags %>
 </p>
 
+  </div>
+  <div class="card-footer text-muted">
+<p>
+<h4>Collaborator list</h4>
+<hr>
+ <% allfollows = @challenge.followers %>
+<%allfollows.each do |item|%>
+<%=item.employee_id%>
+<br>
+<%end%>
+
+</p>
+  </div>
+</div>
+
+
 <%= link_to 'Edit', edit_challenge_path(@challenge) %> |
 <%= link_to 'Back', challenges_path %>
+</div>

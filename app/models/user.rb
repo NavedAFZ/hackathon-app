@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   attr_accessor :login
+  acts_as_voter
   has_many :challenges, dependent: :destroy
+  
+  acts_as_follower
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :o mniauthable
   devise :database_authenticatable, :registerable,

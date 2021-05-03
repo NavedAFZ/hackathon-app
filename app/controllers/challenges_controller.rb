@@ -1,13 +1,19 @@
 class ChallengesController < ApplicationController
+  respond_to :js, :html, :json
   before_action :set_challenge, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[index show search]
+  before_action :authenticate_user!, except: %i[ show search]
   before_action :correct_user, only: %i[edit update destroy]
 
 
   # GET /challenges or /challenges.json
   def index
     @challenges = Challenge.all
+   # sorted = @challenges.sort_by &:tags
   end
+  def sorted
+    @challenges = Challenge.all.sort_by &:title
+  
+  end  
 
   # GET /challenges/1 or /challenges/1.json
   def show
@@ -68,6 +74,17 @@ class ChallengesController < ApplicationController
     @challenge=current_user.challenges.find_by(id: params[:id])
     redirect_to challenges_path, notice: "Not authorize to edit" if @challenge.nil?
   end  
+  def upvote
+    @challenge=Challenge.find(params[:id])
+    @challenge.upvote_by current_user
+    redirect_to challenges_path 
+  end
+  def follow
+    @challenge = Challenge.find(params[:id])
+    current_user.follow(@challenge)
+    redirect_to challenges_path 
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -5,12 +5,11 @@
 <br>
 <br>
 <hr>
-
-
 <div class="card">
   <div class="card-header">
      <h1>Challenges</h1>
-     <%= link_to "sort it" , sorted_path ,class:"btn-primary"%>
+
+     <%= link_to "Normal" , challenges_path ,class:"btn-primary"%>
   </div>
   <div class="card-body">
   <table class="table table-bordered">
@@ -26,9 +25,7 @@
       <th scope="col">#</th>
       <th scope="col">Colab</th>
       <th colspan="3"></th>
-      <th scope="col">
-      Colaborators list
-      </th>
+      <th scope="col">List</th>
     </tr>
   </thead>
 
@@ -90,6 +87,3 @@
 
 <%= link_to 'New Challenge', new_challenge_path %>
 </div>
-
-
-<!-- Modal -->
