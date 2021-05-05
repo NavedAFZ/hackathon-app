@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
-<%= render 'form'%>
+<%= render 'form', challenge: @challenge%>
 <br>
 <br>
 <br>
@@ -10,32 +10,34 @@
 <div class="card">
   <div class="card-header">
      <h1>Challenges</h1>
-     <%= link_to "sort it" , sorted_path ,class:"btn-primary"%>
+     
   </div>
   <div class="card-body">
-  <table class="table table-bordered">
+  <table class="table " id="my-table">
   <thead>
-    <tr>
+    <tr class="bg-info text-white text-center">
      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Tags</th>
+        <th scope="col"><%= sortable "title" %></th>
+      <th scope="col"><%= sortable "description" %></th>
+      <th scope="col"><%= sortable "tags"%></th>
       <th scope="col">Created by</th>
-      <th scope="col">created at</th>
-      <th scope="col">Upvote</th>
+      <th scope="col"><%= sortable "created_at"%></th>
+      
+      <th scope="col"> Upvote</th>
+      
       <th scope="col">#</th>
       <th scope="col">Colab</th>
-      <th colspan="3"></th>
       <th scope="col">
       Colaborators list
       </th>
+      
     </tr>
   </thead>
 
   <tbody>
   <% @var=1%>
     <% @challenges.each do |challenge| %>
-      <tr>
+      <tr class="text-center">
        <th scope="row"><%=@var%></th>
        <%@var=@var+1%>
         <td><%= challenge.title %></td>
@@ -52,28 +54,30 @@
         <td><%if current_user.id!=challenge.user_id%>
         <%= link_to  "+", upvote_challenge_path(challenge), method: :put %>
         <%else%>
-    <button> NA</button>
+    <a class="text-danger">×</a>
         <%end%></td>
         <td> 
         <%if current_user.id!=challenge.user_id%>
         <% if !challenge.followed_by?(current_user) %>
-    <%= link_to "Colaborate", follow_challenge_path(challenge), class: "btn btn-success btn-outline btn-sm"%>
+    <%= link_to "Colaborate", follow_challenge_path(challenge), class: "btn-small btn-success btn-outline btn-sm"%>
     <%else%>
-    <button> colaborated</button>
+    <p class="text-danger"> Colaborated</p>
   <% end %></td>
   <%else%>
-  <button> NA</button>
+ <a class="text-danger">×</a>
+    
   <%end%>
-        <td><%= link_to 'Show', challenge %></td>
-        <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
-        <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
- <td>
+   <td>
  <% allfollows = challenge.followers %>
 <%allfollows.each do |item|%>
 <%=item.employee_id%>
 <br>
 <%end%>
-</td>     
+</td>
+        <% link_to 'Show', challenge %>
+        <% link_to 'Edit', edit_challenge_path(challenge) %>
+        <% link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
+     
       </tr>
 
   </tbody>
@@ -91,5 +95,3 @@
 <%= link_to 'New Challenge', new_challenge_path %>
 </div>
 
-
-<!-- Modal -->

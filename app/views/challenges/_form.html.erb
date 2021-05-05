@@ -1,11 +1,10 @@
-<%@c1=Challenge.new%>
-<%= form_with(model: @c1, local: true) do |form| %>
-  <% if @c1.errors.any? %>
+<%= form_with(model: challenge, local: true) do |form| %>
+  <% if challenge.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@c1.errors.count, "error") %> prohibited this challenge from being saved:</h2>
+      <h2><%= pluralize(challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
 
       <ul>
-        <% @c1.errors.each do |error| %>
+        <% challenge.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -14,26 +13,29 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col"><%= form.label :title %></th>
-      <th scope="col"><%= form.label :description %></th>
-      <th scope="col"> <%= form.label :tags %> </th>
+      <th scope="col" class="text-center"><%= form.label :title %></th>
+      <th scope="col" class="text-center"><%= form.label :description %></th>
+      <th scope="col" class="text-center"> <%= form.label :tags %> </th>
+      <th colspan=1></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><%= form.text_field :title %></td>
-      <td><%= form.text_field :description %></td>
-      <td><%= form.text_field :tags %></td>
+      <td class="text-center"><%= form.text_field :title %></td>
+      <td class="text-center"><%= form.text_field :description %></td>
+      
+      
+      <td class="text-center"> <%= form.select :tags, [ 'sorting','DP','Greedy','Tree', 'Graph','Recursion','Bitmasking' ], :prompt => 'Select One' %></td>
+        <div class="field">
+   </div>
+
+       <div class="actions">
+   <td> <%= form.submit class:"btn-small btn-primary"%></td>
+  </div>
     </tr>
     
   </tbody>
 </table>
-    <div class="field">
-    <%= form.number_field :user_id ,id: :challenge_user_id, value: current_user.id, type: :hidden%>
-  </div>
+  
 
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

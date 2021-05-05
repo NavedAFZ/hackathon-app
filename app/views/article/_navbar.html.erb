@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <%= link_to "Home", challenges_path, class:'nav-link nav-text text-white' %>
+      
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,7 +8,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-          <%= link_to "Home", challenges_path, class:'nav-link nav-text' %>
+          <% link_to "Home", new_challenge_path, class:'nav-link nav-text' %>
+              
+      </li>
+      <li>
+      <h3 class="text-whitecs" style="margin-left:700px">Hackathon</h3>
+      </li>
+      <li class="nav-item active">
+          <% link_to "Home2", challenges_path, class:'nav-link nav-text' %>
               
       </li>
 
@@ -15,13 +23,13 @@
 
 
 
-          <li class="nav-item " id="applicants-nav-index">
+          <li class="nav-item " id="applicants-nav-index" style="margin-left:600px">
                 <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:'nav-link nav-text' %>
               </li>
 
       <%else%>
 
-          <li class="nav-item " id="applicants-nav-index">
+          <li class="nav-item " id="applicants-nav-index" style="margin-left:700px">
                 <%= link_to "Sign Up",new_user_registration_path, class:'nav-link nav-text' %>
               </li>
           <li class="nav-item " id="applicants-nav-index">
@@ -34,9 +42,6 @@
 
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    
   </div>
 </nav>

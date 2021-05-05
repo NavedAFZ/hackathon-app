@@ -1,9 +1,97 @@
-<h1>New Challenge</h1>
+<p id="notice"><%= notice %></p>
+<div class="container">
+<%= render 'form', challenge: @challenge%>
+<br>
+<br>
+<br>
+<hr>
 
-<%= render 'form', challenge: @challenge %>
 
-<%= link_to 'Back', challenges_path %>
+<div class="card">
+  <div class="card-header">
+     <h1>Challenges</h1>
+     
+  </div>
+  <div class="card-body">
+  <table class="table " id="my-table">
+  <thead>
+    <tr class="bg-info text-white text-center">
+     <th scope="col">#</th>
+        <th scope="col"><%= sortable "title" %></th>
+      <th scope="col"><%= sortable "description" %></th>
+      <th scope="col"><%= sortable "tags"%></th>
+      <th scope="col">Created by</th>
+      
+      <th scope="col"><%= sortable "created_at"%></th>
+      <th scope="col"> Upvote</th>
+      
+      <th scope="col">#</th>
+      <th scope="col">Colab</th>
+      <th scope="col">
+      Colaborators list
+      </th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @var=1%>
+    <% @challenges.each do |challenge| %>
+      <tr class="text-center">
+       <th scope="row"><%=@var%></th>
+       <%@var=@var+1%>
+        <td><%= challenge.title %></td>
+        <td><%= challenge.description %></td>
+        <td><%= challenge.tags %></td>
+          <%@u=User.find_by(id: challenge.user_id)%>
+  <td><%= @u.employee_id %></td>
+  <td><%= challenge.created_at %></td>
+        
+        
+        <td>
+        <%= challenge.get_upvotes.size%>
+        </td>
+        <td><%if current_user.id!=challenge.user_id%>
+        <%= link_to  "+", upvote_challenge_path(challenge), method: :put %>
+        <%else%>
+    <a class="text-danger">×</a>
+        <%end%></td>
+        <td> 
+        <%if current_user.id!=challenge.user_id%>
+        <% if !challenge.followed_by?(current_user) %>
+    <%= link_to "Colaborate", follow_challenge_path(challenge), class: "btn-small btn-success btn-outline btn-sm"%>
+    <%else%>
+    <p class="text-danger"> Colaborated</p>
+  <% end %></td>
+  <%else%>
+ <a class="text-danger">×</a>
+    
+  <%end%>
+   <td>
+ <% allfollows = challenge.followers %>
+<%allfollows.each do |item|%>
+<%=item.employee_id%>
+<br>
+<%end%>
+</td>
+        <% link_to 'Show', challenge %>
+        <% link_to 'Edit', edit_challenge_path(challenge) %>
+        <% link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
+     
+      </tr>
+
+  </tbody>
+    <% end %>
+    
+
+</table>
+
+  </div>
+</div>
 
 
+<br>
 
+<%= link_to 'New Challenge', new_challenge_path %>
+</div>
 

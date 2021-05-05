@@ -1,0 +1,183 @@
+
+require 'rails_helper'
+
+RSpec.describe Challenge, type: :model do
+  current_user = User.first_or_create!(email: 'dean@example.com',employee_id:'E01', password: 'password', password_confirmation: 'password')
+
+  it 'has a title' do
+    post = Challenge.new(
+      title: '',
+      description: 'A Valid Body',
+      user: current_user
+    )
+    expect(post).to_not be_valid
+
+    post.title = 'Has a title'
+    expect(post).to be_valid
+  end
+  it 'has a body' do
+    post = Challenge.new(
+      title: 'A Valid Title',
+      description: '',
+      user: current_user
+    )
+    expect(post).to_not be_valid
+
+    post.description = 'Has a title'
+    expect(post).to be_valid
+  end
+
+  it 'has a title at least 4 characters long' do
+    post = Challenge.new(
+      title: '1',
+      description: 'A Valid Body',
+      user: current_user    )
+    expect(post).to_not be_valid
+
+    post.title = '1236'
+    expect(post).to be_valid
+  end
+
+  it 'has a description between 4 and 100 characters' do
+    post = Challenge.new(
+      title: '1234',
+      description: '123',
+      user: current_user
+    )
+    expect(post).to_not be_valid
+
+    post.description = '123456'
+    expect(post).to be_valid
+
+    hundred_char_string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m'
+    post.description = hundred_char_string
+    expect(post).to be_valid
+
+    post.description = hundred_char_string + '1'
+    expect(post).to_not be_valid
+  end
+
+#   it 'has numerical views' do
+#     post = Post.new(
+#       title: '12',
+#       body: '1234',
+#       user: current_user,
+#       views: 0
+#     )
+#     expect(post.views).to be_a(Integer)
+#   end
+end
+
+
+
+
+
+
+
+
+<form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+
+     <% form.number_field :user_id ,id: :challenge_user_id, value: current_user.id%>
+  <h1>hello</h1>
+
+<p id="notice"><%= notice %></p>
+<div class="container">
+<%= render 'form', challenge: @challenge%>
+<br>
+<br>
+<br>
+<hr>
+
+
+<div class="card">
+  <div class="card-header">
+     <h1>Challenges</h1>
+     
+  </div>
+  <div class="card-body">
+  <table class="table " id="my1-table">
+  <thead>
+    <tr class="bg-info text-white text-center">
+     <th scope="col">#</th>
+      <th scope="col"><%= link_to "Title", :sort =>"title"%></th>
+      <th scope="col"><%= link_to "Title", :sort =>"description"%><</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Created by</th>
+      <th scope="col">created at</th>
+      <th scope="col">Upvote</th>
+      <th scope="col">#</th>
+      <th scope="col">Colab</th>
+      <th scope="col">
+      Colaborators list
+      </th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @var=1%>
+    <% @challenges.each do |challenge| %>
+      <tr class="text-center">
+       <th scope="row"><%=@var%></th>
+       <%@var=@var+1%>
+        <td><%= challenge.title %></td>
+        <td><%= challenge.description %></td>
+        <td><%= challenge.tags %></td>
+          <%@u=User.find_by(id: challenge.user_id)%>
+  <td><%= @u.employee_id %></td>
+  <td><%= challenge.created_at %></td>
+        
+        
+        <td>
+        <%= challenge.get_upvotes.size%>
+        </td>
+        <td><%if current_user.id!=challenge.user_id%>
+        <%= link_to  "+", upvote_challenge_path(challenge), method: :put %>
+        <%else%>
+    <a class="text-danger">×</a>
+        <%end%></td>
+        <td> 
+        <%if current_user.id!=challenge.user_id%>
+        <% if !challenge.followed_by?(current_user) %>
+    <%= link_to "Colaborate", follow_challenge_path(challenge), class: "btn-small btn-success btn-outline btn-sm"%>
+    <%else%>
+    <p class="text-danger"> Colaborated</p>
+  <% end %></td>
+  <%else%>
+ <a class="text-danger">×</a>
+    
+  <%end%>
+   <td>
+ <% allfollows = challenge.followers %>
+<%allfollows.each do |item|%>
+<%=item.employee_id%>
+<br>
+<%end%>
+</td>
+        <% link_to 'Show', challenge %>
+        <% link_to 'Edit', edit_challenge_path(challenge) %>
+        <% link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
+     
+      </tr>
+
+  </tbody>
+    <% end %>
+    
+
+</table>
+
+  </div>
+</div>
+
+
+<br>
+
+</div>
+
+
+<!-- Modal -->

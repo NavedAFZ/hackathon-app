@@ -20,6 +20,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'bootstrap'
 gem 'acts_as_votable'
+gem 'will_paginate', '~> 3.1.0'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -28,7 +29,7 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'jquery-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -69,3 +70,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'rspec-rails'
 end
+
+gem "jquery-datatables", "~> 1.10"

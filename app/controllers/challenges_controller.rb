@@ -3,11 +3,14 @@ class ChallengesController < ApplicationController
   before_action :set_challenge, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: %i[ show search]
   before_action :correct_user, only: %i[edit update destroy]
+  helper_method :sort_column, :sort_direction
 
 
   # GET /challenges or /challenges.json
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.all.order(sort_column + " " + sort_direction)
+    @challenge = current_user.challenges.build
+
    # sorted = @challenges.sort_by &:tags
   end
   def sorted
@@ -22,9 +25,10 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/new
   def new
-    #@challenge = Challenge.new
+    @challenges = Challenge.all.order(sort_column + " " + sort_direction)
     @challenge = current_user.challenges.build
 
+    
   end
 
   # GET /challenges/1/edit
@@ -35,7 +39,8 @@ class ChallengesController < ApplicationController
   # POST /challenges or /challenges.json
   def create
    # @challenge = Challenge.new(challenge_params)
-    
+   @challenges = Challenge.all
+
     @challenge = current_user.challenges.build(challenge_params)
     respond_to do |format|
       if @challenge.save
@@ -91,7 +96,13 @@ class ChallengesController < ApplicationController
     def set_challenge
       @challenge = Challenge.find(params[:id])
     end
-
+    def sort_column
+      Challenge.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
     # Only allow a list of trusted parameters through.
     def challenge_params
       params.require(:challenge).permit(:title, :description, :tags, :user_id)
