@@ -8,7 +8,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges or /challenges.json
   def index
-    @challenges = Challenge.all.order(sort_column + " " + sort_direction)
+    @challenges = Challenge.all.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
     @challenge = current_user.challenges.build
 
    # sorted = @challenges.sort_by &:tags
@@ -25,7 +25,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/new
   def new
-    @challenges = Challenge.all.order(sort_column + " " + sort_direction)
+    @challenges = Challenge.all.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
     @challenge = current_user.challenges.build
 
     

@@ -8,10 +8,20 @@
 
 
 <div class="card">
-  <div class="card-header">
-     <h1>Challenges</h1>
-     
+    <div class="card-header row">
+   <div class="col-sm-6">  <h1>Challenges</h1></div>
+     <div class="col-sm-6">
+<%= form_tag challenges_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  
+
+<% end %>
+</div>
   </div>
+
   <div class="card-body">
   <table class="table " id="my-table">
   <thead>
@@ -76,7 +86,7 @@
 </td>
         <% link_to 'Show', challenge %>
         <% link_to 'Edit', edit_challenge_path(challenge) %>
-        <% link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
      
       </tr>
 
@@ -86,12 +96,15 @@
 
 </table>
 
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<%= will_paginate @challenges %>
+
   </div>
 </div>
 
 
 <br>
 
-<%= link_to 'New Challenge', new_challenge_path %>
 </div>
 
