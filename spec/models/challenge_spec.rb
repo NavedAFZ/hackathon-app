@@ -15,7 +15,7 @@ RSpec.describe Challenge, type: :model do
     post.title = 'Has a title'
     expect(post).to be_valid
   end
-  it 'has a body' do
+  it 'has a description' do
     post = Challenge.new(
       title: 'A Valid Title',
       description: '',
