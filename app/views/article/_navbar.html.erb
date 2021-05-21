@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary"  style="padding:20px;">
+<% if user_signed_in?%>
+
       <%= link_to "Home", challenges_path, class:'nav-link nav-text text-white' %>
-      
+
+<%end%>      
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

@@ -21,6 +21,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap'
 gem 'acts_as_votable'
 gem 'will_paginate', '~> 3.1.0'
+gem "font-awesome-rails"
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

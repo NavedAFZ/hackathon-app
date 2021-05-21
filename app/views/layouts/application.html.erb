@@ -12,6 +12,10 @@
 
   <body>
   <%= render 'article/navbar'%>
+  <% if notice%>
+  <%= render 'layouts/error'%>
+  <%end%>
     <%= yield %>
+    <%= render 'article/footer'%>
   </body>
 </html>

@@ -10,27 +10,29 @@
       </ul>
     </div>
   <% end %>
-<table class="table table-striped">
-  <thead>
+<table class="table ">
+  <thead class="bg-dark text-white">
     <tr>
-      <th scope="col" class="text-center"><%= form.label :title %></th>
+    
+      <th scope="col" class="text-center py-3"><%= form.label :title %></th>
       <th scope="col" class="text-center"><%= form.label :description %></th>
       <th scope="col" class="text-center"> <%= form.label :tags %> </th>
       <th colspan=1></th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td class="text-center"><%= form.text_field :title %></td>
-      <td class="text-center"><%= form.text_field :description %></td>
+  <tbody >
+    <tr >
+    
+      <td class="text-center "style="padding:50px;"><%= form.text_field :title %></td>
+      <td class="text-center" style="padding:50px;"><%= form.text_field :description %></td>
       
-      
-      <td class="text-center"> <%= form.select :tags, [ 'sorting','DP','Greedy','Tree', 'Graph','Recursion','Bitmasking' ], :prompt => 'Select One' %></td>
+
+      <td class="text-center" style="padding:50px;"> <%= form.select :tags, [ 'Array','Bitmasking','BST','DP','Graph','Greedy','Recursion','Searching','Sorting','String','Tree'  ], :prompt => 'Select One' %></td>
         <div class="field">
    </div>
 
        <div class="actions">
-   <td> <%= form.submit class:"btn-small btn-primary"%></td>
+   <td style="padding:50px;"> <%= form.submit class:"btn btn-sm bg-primary text-white"%></td>
   </div>
     </tr>
     

@@ -1,36 +1,32 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
 <%= render 'form', challenge: @challenge%>
-<br>
-<br>
-<br>
-<hr>
 
 
-<div class="card">
-  <div class="card-header row">
-   <div class="col-sm-6">  <h1>Challenges</h1></div>
-     <div class="col-sm-6">
+
+  <div class=" row bg-primary text-white">
+   <div class="col-sm-8 mt-2">  <h3>Challenges</h3></div>
+     <div class="col-sm-4 mt-3">
 <%= form_tag challenges_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= submit_tag "Search", :name => nil , class:" btn btn-sm bg-dark text-white"%>
   </p>
   
 
 <% end %>
 </div>
   </div>
-  <div class="card-body">
+  <div class="">
   <table class="table " id="my-table">
-  <thead>
-    <tr class="bg-info text-white text-center">
-     <th scope="col">#</th>
-        <th scope="col"><%= sortable "title" %></th>
-      <th scope="col"><%= sortable "description" %></th>
-      <th scope="col"><%= sortable "tags"%></th>
+  <thead class="">
+    <tr class="bg-dark text-white text-center">
+     <th scope="col"></th>
+        <th scope="col" class="text-white"><%= sortable "title" %></th>
+      <th scope="col" class="text-white"><%= sortable "description" %></th>
+      <th scope="col" class="text-white"><%= sortable "tags"%></th>
+      <th scope="col" class="text-white"><%= sortable "created_at"%></th>
+
       <th scope="col">Created by</th>
-      <th scope="col"><%= sortable "created_at"%></th>
       
       <th scope="col"> Upvote</th>
       
@@ -39,41 +35,49 @@
       <th scope="col">
       Colaborators list
       </th>
-      
+      <th scope="col">#</th>
     </tr>
   </thead>
 
   <tbody>
+  <br>
   <% @var=1%>
     <% @challenges.each do |challenge| %>
       <tr class="text-center">
        <th scope="row"><%=@var%></th>
        <%@var=@var+1%>
-        <td><%= challenge.title %></td>
-        <td><%= challenge.description %></td>
-        <td><%= challenge.tags %></td>
+       
+        <td><%= challenge.title.capitalize  %></td>
+        <td><%= challenge.description.capitalize  %></td>
+        <td><%= challenge.tags  %></td>
           <%@u=User.find_by(id: challenge.user_id)%>
+  <td><%= challenge.created_at.strftime("%Y-%m-%d") %></td>
+
   <td><%= @u.employee_id %></td>
-  <td><%= challenge.created_at %></td>
         
         
         <td>
         <%= challenge.get_upvotes.size%>
         </td>
         <td><%if current_user.id!=challenge.user_id%>
-        <%= link_to  "+", upvote_challenge_path(challenge), method: :put %>
+        <% if !current_user.voted_up_on? challenge %>
+        <%= link_to  "", upvote_challenge_path(challenge), method: :put , class:"fa fa-plus",style:'font-size:30px;'%>
         <%else%>
-    <a class="text-danger">×</a>
+        <p class="text-success"> <i class="fa fa-check-square-o" style='font-size:30px;'></i></p>
+        <%end%>
+        <%else%>
+    <a class="text-danger"><i class='fa fa-ban' style='font-size:30px;'></i></a>
         <%end%></td>
         <td> 
         <%if current_user.id!=challenge.user_id%>
         <% if !challenge.followed_by?(current_user) %>
-    <%= link_to "Colaborate", follow_challenge_path(challenge), class: "btn-small btn-success btn-outline btn-sm"%>
+    <%= link_to "", follow_challenge_path(challenge), class: " fa fa-handshake-o text-primary",style:'font-size:30px;'%>
     <%else%>
-    <p class="text-danger"> Colaborated</p>
+    <p class="text-success"> <i class="fa fa-check-circle" style='font-size:30px;'></i></p>
   <% end %></td>
   <%else%>
- <a class="text-danger">×</a>
+
+ <a class="text-danger"><i class='fa fa-ban' style='font-size:30px;'></i></a>
     
   <%end%>
    <td>
@@ -83,9 +87,9 @@
 <br>
 <%end%>
 </td>
-        <% link_to 'Show', challenge %>
+        <td><%= link_to 'Show', challenge,class:"btn btn-sm bg-dark text-white" %></td>
         <% link_to 'Edit', edit_challenge_path(challenge) %>
-        <%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
      
       </tr>
 
@@ -102,6 +106,10 @@
 
 
 <br>
+<br>
+<br>
+<br>
+
 
 </div>
 
