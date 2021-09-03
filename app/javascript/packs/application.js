@@ -13,9 +13,19 @@
 // Turbolinks.start()
 // ActiveStorage.start()
 
-// require ('jquery_ujs')
-//  require ('dataTables/jquery.dataTables')
-//  require ('dataTables/bootstrap/3/jquery.dataTables.bootstrap')
+
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap-sprockets
+//= require turbolinks
+//= require_tree .
+import "bootstrap"
+import "../stylesheets/application"
+
+document.addEventListener("turbolinks:load", () => {
+    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="popover"]').popover()
+})
 
 require("@rails/ujs").start()
 require("turbolinks").start()
@@ -24,3 +34,4 @@ require("channels")
 require( 'datatables.net-bs4' )
 import $ from 'jquery';
 global.$ = jQuery;
+

@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
   resources :challenges 
   devise_for :users
+ # devise_for :users
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   get 'article/index'
   root to: 'challenges#new'
   get "sorted"=>"challenges#sorted"
   resources :challenges do
     member do
-      put "upvote" => "challenges#upvote"
+      put "upvote", to: "challenges#upvote"
     end  
-  end  
+  end
+    
   resources :challenges do
     member do
       get "follow" => "challenges#follow"

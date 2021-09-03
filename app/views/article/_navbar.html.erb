@@ -1,42 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary"  style="padding:20px;">
-<% if user_signed_in?%>
-
-      <%= link_to "Home", challenges_path, class:'nav-link nav-text text-white' %>
-
-<%end%>      
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center"  style="padding:20px;">
+  
+ 
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-          <% link_to "Home", new_challenge_path, class:'nav-link nav-text' %>
-              
+    <ul class="navbar-nav mr-auto" style="list-style:none;">
+
+      <li style="margin-left:100px;">
+      <h1 class="text-whitecs" >Hackathon</h1>
       </li>
-      <li>
-      <h3 class="text-whitecs" style="margin-left:700px">Hackathon</h3>
-      </li>
-      <li class="nav-item active">
-          <% link_to "Home2", challenges_path, class:'nav-link nav-text' %>
-              
-      </li>
+    <li style="margin-left:1000px;"><h3>
+    <% if user_signed_in?%>
+
+      <%= link_to "Home", challenges_path, class:'nav-link text-white', style:"color:white;"%>
+
+<%end%> </h3>
+</li>   
 
       <% if user_signed_in?%>
 
 
 
-          <li class="nav-item " id="applicants-nav-index" style="margin-left:600px">
-                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:'nav-link nav-text' %>
+          <li class="nav-item " id="applicants-nav-index" style="margin-left:100px;">
+              <h3>  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:'nav-link nav-text', style:"color:white;" %></h3>
               </li>
 
       <%else%>
 
-          <li class="nav-item " id="applicants-nav-index" style="margin-left:700px">
-                <%= link_to "Sign Up",new_user_registration_path, class:'nav-link nav-text' %>
+          <li class="nav-item " id="applicants-nav-index" style="margin-left:100px">
+            <h3>    <%= link_to "Sign Up",new_user_registration_path, class:'nav-link nav-text', style:"color:white;" %></h3>
               </li>
-          <li class="nav-item " id="applicants-nav-index">
-                <%= link_to "Sign In", new_user_session_path, class:'nav-link nav-text' %>
+          <li class="nav-item " id="applicants-nav-index"style="margin-left:100px;">
+              <h3>  <%= link_to "Sign In", new_user_session_path, class:'nav-link nav-text' , style:"color:white;"%></h3>
               </li>
 
 

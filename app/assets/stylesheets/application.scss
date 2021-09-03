@@ -11,8 +11,9 @@
  * It is generally better to create a new file per style scope.
  *
  */
-
- @import "bootstrap/scss/bootstrap";
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ 
  @import 'datatables';
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
 @import "font-awesome";

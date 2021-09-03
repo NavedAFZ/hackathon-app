@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_120351) do
+ActiveRecord::Schema.define(version: 2021_09_01_115032) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+  end
 
   create_table "challenges", force: :cascade do |t|
     t.string "title"
@@ -22,11 +33,21 @@ ActiveRecord::Schema.define(version: 2021_04_30_120351) do
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "commenter"
+    t.text "body"
+    t.bigint "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.index ["article_id"], name: "index_comments_on_article_id"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.string "followable_type", null: false
-    t.integer "followable_id", null: false
+    t.bigint "followable_id", null: false
     t.string "follower_type", null: false
-    t.integer "follower_id", null: false
+    t.bigint "follower_id", null: false
     t.boolean "blocked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -65,4 +86,5 @@ ActiveRecord::Schema.define(version: 2021_04_30_120351) do
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
+  add_foreign_key "comments", "articles"
 end
